@@ -1,0 +1,24 @@
+# Maven
+target/
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+/src/main/resources/com/mycompany/mavennetwork/
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE files (optional safety)
+*.iml
+.idea/
+.classpath
+.project
+.settings/
