@@ -8,7 +8,12 @@ package com.mycompany.mavennetwork.UI;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.geometry.Insets;
-
+/**
+ * 
+ * Class that defiends all of the UI of control panel.
+ * 
+ *  @author Dawid
+ */
 public class ControlPanel extends VBox {
     
     public Label titleLabel;

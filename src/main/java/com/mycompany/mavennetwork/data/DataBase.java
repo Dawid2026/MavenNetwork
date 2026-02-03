@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.mycompany.mavennetwork.data;
 
 import com.mycompany.mavennetwork.App;
@@ -14,7 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ *  
+ * Class that loads and sanitizes data.
+ * 
  * @author Dawid
  */
 public class DataBase {
@@ -48,8 +47,13 @@ public class DataBase {
     public int[] getLabelsTest() {
         return labelsTest;
     }
-
-    public double[][] readCSV(String filePath) {
+    /**
+     * Internal method that reads csv mnist file.
+     * 
+     * @param filePath path to file {if file is in resource folder "filepath"}
+     * @return 
+     */
+    private double[][] readCSV(String filePath) {
         InputStream is = App.class.getResourceAsStream(filePath);
         List<double[]> dataList = new ArrayList<>();
 
@@ -78,7 +82,11 @@ public class DataBase {
 
         return dataArray;
     }
-
+    /**
+     *  Method used to load Training Data csv.
+     * 
+     * @param filePath path to file {if file is in resource folder "filepath"}
+     */
     public void loadTrainingData(String filePath) {
         double[][] input = this.readCSV(filePath);
         int samples = input.length;
@@ -96,7 +104,11 @@ public class DataBase {
 
         Y = helperMathFunctions.oneHotEncode(labels, 10);
     }
-
+     /**
+     *  Method used to load Testing Data csv.
+     * 
+     * @param filePath path to file {if file is in resource folder "filepath"}
+     */
     public void loadTestingData(String filePath) {
         double[][] input = this.readCSV(filePath);
         int samples = input.length;

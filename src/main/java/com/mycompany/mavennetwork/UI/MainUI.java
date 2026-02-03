@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.mycompany.mavennetwork.UI;
 import Logic.Controller;
 import javafx.scene.Scene;
@@ -9,6 +6,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 /**
+ * Clas that glues together all UI elements.
  *
  * @author Dawid
  */
@@ -36,13 +34,16 @@ public class MainUI {
 
         Scene scene = new Scene(root, 1000, 700);
         
-        applyStyles(controls, logPanel, mnist);
+        applyStyles();
         
-
+        
         stage.setScene(scene);
+        stage.setTitle("Neural Network app");
         stage.show();
     }
-
+    /**
+     *  Gives buttons set on action logic
+     */
     private void hookEvents() {
 
         controls.loadTrainBtn.setOnAction(e -> {
@@ -111,37 +112,41 @@ public class MainUI {
             mnist.clearCanvas();
         });
     }
-    
-    private void applyStyles(ControlPanel controlPanel, LogPanel logPanel, MNISTCanvas mnistCanvas) {
-        controlPanel.setStyle("-fx-background-color: #f4f4f4;");
+    /**
+     * 
+     * applies css to this UI
+     * 
+     */
+    private void applyStyles() {
+        controls.setStyle("-fx-background-color: #f4f4f4;");
         logPanel.setStyle("-fx-background-color: #eaeaea; -fx-padding: 10;");
 
-        controlPanel.titleLabel.setStyle(
+        controls.titleLabel.setStyle(
                 "-fx-font-size: 20px; " +
                 "-fx-font-weight: bold; " +
                 "-fx-text-fill: #333;"
         );
 
-        controlPanel.loadTrainBtn.setStyle(buttonStyle());
-        controlPanel.loadTestBtn.setStyle(buttonStyle());
-        controlPanel.addLayerBtn.setStyle(buttonStyle());
-        controlPanel.addOutputLayer.setStyle(buttonStyle());
-        controlPanel.compileBtn.setStyle(buttonStyle());
-        controlPanel.trainBtn.setStyle(buttonStyle());
-        controlPanel.testBtn.setStyle(buttonStyle());
-        controlPanel.resetBtn.setStyle(buttonStyle());
+        controls.loadTrainBtn.setStyle(buttonStyle());
+        controls.loadTestBtn.setStyle(buttonStyle());
+        controls.addLayerBtn.setStyle(buttonStyle());
+        controls.addOutputLayer.setStyle(buttonStyle());
+        controls.compileBtn.setStyle(buttonStyle());
+        controls.trainBtn.setStyle(buttonStyle());
+        controls.testBtn.setStyle(buttonStyle());
+        controls.resetBtn.setStyle(buttonStyle());
 
-        mnistCanvas.predict.setStyle(buttonStyle());
-        mnistCanvas.getChildren().filtered(node -> node instanceof javafx.scene.control.Button)
+        mnist.predict.setStyle(buttonStyle());
+        mnist.getChildren().filtered(node -> node instanceof javafx.scene.control.Button)
                 .forEach(node -> node.setStyle(buttonStyle()));
 
-        controlPanel.inputNeurons.setStyle(inputStyle());
-        controlPanel.outputNeurons.setStyle(inputStyle());
-        controlPanel.learningRate.setStyle(inputStyle());
-        controlPanel.epochsField.setStyle(inputStyle());
-        controlPanel.batchField.setStyle(inputStyle());
+        controls.inputNeurons.setStyle(inputStyle());
+        controls.outputNeurons.setStyle(inputStyle());
+        controls.learningRate.setStyle(inputStyle());
+        controls.epochsField.setStyle(inputStyle());
+        controls.batchField.setStyle(inputStyle());
 
-        controlPanel.activationBox.setStyle(
+        controls.activationBox.setStyle(
                 "-fx-background-color: white; " +
                 "-fx-border-color: #cccccc; " +
                 "-fx-border-radius: 3;"
@@ -161,7 +166,7 @@ public class MainUI {
         logPanel.logArea.setPrefHeight(200);
 
     }
-
+    
     private String buttonStyle() {
         return "-fx-background-color: #4CAF50; " +
                "-fx-text-fill: white; " +

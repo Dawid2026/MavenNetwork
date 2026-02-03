@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.mycompany.mavennetwork.UI;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -13,6 +10,11 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.image.PixelReader;
 import java.util.Arrays;
 
+/**
+ * Class that defiends mnist canvas
+ * 
+ * @author Dawid
+ */
 public class MNISTCanvas extends VBox {
 
     private final Canvas canvas;
@@ -20,13 +22,13 @@ public class MNISTCanvas extends VBox {
     private double lastX, lastY;
     public Button predict;
 
-    private final int CANVAS_SIZE = 280; 
-    private final int MNIST_SIZE = 28;   
-    private final int INNER_SIZE = 24;   
-    private final int PADDING = (MNIST_SIZE - INNER_SIZE) / 2;
+    private final int canvasSize = 280; 
+    private final int mnistSize = 28;   
+    private final int innerSize = 24;   
+    private final int padding = (mnistSize - innerSize) / 2;
 
     public MNISTCanvas() {
-        canvas = new Canvas(CANVAS_SIZE, CANVAS_SIZE);
+        canvas = new Canvas(canvasSize, canvasSize);
         gc = canvas.getGraphicsContext2D();
         predict = new Button("Predict");
 
@@ -46,8 +48,8 @@ public class MNISTCanvas extends VBox {
             double x = e.getX();
             double y = e.getY();
             // Constrain drawing to inner area
-            x = Math.max(PADDING * 10, Math.min(x, (CANVAS_SIZE - PADDING * 10)));
-            y = Math.max(PADDING * 10, Math.min(y, (CANVAS_SIZE - PADDING * 10)));
+            x = Math.max(padding * 10, Math.min(x, (canvasSize - padding * 10)));
+            y = Math.max(padding * 10, Math.min(y, (canvasSize - padding * 10)));
 
             gc.strokeLine(lastX, lastY, x, y);
             lastX = x;
@@ -63,33 +65,50 @@ public class MNISTCanvas extends VBox {
         this.setSpacing(10);
     }
 
+    /**
+     * 
+     * Draw inner box inside of main canvas for better accuracy.
+     * 
+     */
     private void drawInnerBorder() {
         gc.setStroke(Color.LIGHTGRAY);
         gc.setLineWidth(2);
-        double scale = CANVAS_SIZE / (double) MNIST_SIZE;
-        gc.strokeRect(PADDING * scale, PADDING * scale, INNER_SIZE * scale, INNER_SIZE * scale);
+        double scale = canvasSize / (double) mnistSize;
+        gc.strokeRect(padding * scale, padding * scale, innerSize * scale, innerSize * scale);
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(12);
     }
-
+    
+    /**
+     * 
+     * Clear canvas after drawing
+     * 
+     */
     public void clearCanvas() {
         gc.setFill(Color.WHITE);
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         drawInnerBorder();
     }
-
+    
+    /**
+     * 
+     * Turns canvas drawing into flattende data array that 
+     * is ready to use in the model
+     * 
+     * @return 
+     */
     public double[] getMNISTImageFlattened() {
         WritableImage snapshot = canvas.snapshot(null, null);
-        double[] pixels = new double[MNIST_SIZE * MNIST_SIZE];
+        double[] pixels = new double[mnistSize * mnistSize];
 
         PixelReader reader = snapshot.getPixelReader();
-        double scaleX = snapshot.getWidth() / INNER_SIZE; 
-        double scaleY = snapshot.getHeight() / INNER_SIZE;
+        double scaleX = snapshot.getWidth() / innerSize; 
+        double scaleY = snapshot.getHeight() / innerSize;
 
         Arrays.fill(pixels, 0.0);
 
-        for (int y = 0; y < INNER_SIZE; y++) {
-            for (int x = 0; x < INNER_SIZE; x++) {
+        for (int y = 0; y < innerSize; y++) {
+            for (int x = 0; x < innerSize; x++) {
                 double sum = 0;
                 int count = 0;
 
@@ -103,9 +122,9 @@ public class MNISTCanvas extends VBox {
                     }
                 }
 
-                int targetX = x + PADDING;
-                int targetY = y + PADDING;
-                pixels[targetY * MNIST_SIZE + targetX] = sum / count;
+                int targetX = x + padding;
+                int targetY = y + padding;
+                pixels[targetY * mnistSize + targetX] = sum / count;
             }
         }
 

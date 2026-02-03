@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Logic;
 import com.mycompany.mavennetwork.UI.LogPanel;
 import com.mycompany.mavennetwork.activationfunction.*;
@@ -11,7 +8,8 @@ import com.mycompany.mavennetwork.optimizers.*;
 import com.mycompany.mavennetwork.data.DataBase;
 
 /**
- *
+ * Controls Logic of clicking butons in UI
+ * 
  * @author Dawid
  */
 public class Controller {
@@ -49,7 +47,7 @@ public class Controller {
             model.add(new DenseLayer(in, out, null));
         }
 
-        log.log("Layer added: " + in + " → " + out + " (" + activation + ")");
+        log.log("DenseLayer added: " + in + " → " + out + " (" + activation + ")");
     }
 
     public void addOutputLayer(String activation) {
@@ -62,12 +60,12 @@ public class Controller {
 
     public void compile() {
         model.compile(new SoftmaxCrossEntropy());
-        log.log("Model compiled");
+        log.log("Model compiled {SoftmaxCrossEntropy}");
     }
 
     public void train(int epochs, int batchSize, double learningRate) {
         Trainer trainer = new Trainer(model, new SGD(learningRate));
-        trainer.fit_partial(data.getX(), data.getY(), epochs, batchSize);
+        trainer.fitPartial(data.getX(), data.getY(), epochs, batchSize);
         log.log("Training finished");
     }
 

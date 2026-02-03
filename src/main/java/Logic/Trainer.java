@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Logic;
 import com.mycompany.mavennetwork.optimizers.Optimizer;
 import com.mycompany.mavennetwork.layers.Layer;
@@ -10,6 +7,8 @@ import java.util.List;
 import java.util.Random;
 /**
  *
+ * Trainer class that responsible for training the model
+ * 
  * @author Dawid
  */
 public class Trainer {
@@ -24,26 +23,14 @@ public class Trainer {
         this.layers = model.getLayers();      
         lossfunction = model.getLossFunction();
     }
-    
-    public void fit(double[][] X, double[][] Y, int epochs) {
-        for (int e = 0; e < epochs; e++) {
-            double totalLoss = 0;
-            
-            model.resetGradients();
-            for (int i = 0; i < X.length; i++) {
-                double[] yPred = model.forward(X[i]);
-                totalLoss += model.loss(yPred, Y[i]);
-                double[] grad = lossfunction.gradient(yPred, Y[i]); 
-                model.backward(grad);
-            }
-            model.scaleGradients(1.0 / X.length); 
-            optimizer.update(layers);
-            
-            System.out.println("Epoch " + e + " loss: " + totalLoss / X.length);
-        }
-    }
-    
-    public void fit_partial(double[][] X, double[][] Y, int epochs, int batchSize) {
+    /**
+     * Mini bach method that trains model 
+     * @param X data Pixels
+     * @param Y data Labels
+     * @param epochs Number of repetitions of training
+     * @param batchSize 
+     */
+    public void fitPartial(double[][] X, double[][] Y, int epochs, int batchSize) {
         Random rand = new Random();
 
         for (int e = 0; e < epochs; e++) {

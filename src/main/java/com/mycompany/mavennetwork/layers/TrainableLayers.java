@@ -1,7 +1,8 @@
 
 package com.mycompany.mavennetwork.layers;
 /**
- *
+ *  Abstract class that separete Layers that need to be trainind.
+ * 
  * @author Dawid
  */
 public abstract class TrainableLayers extends Layer {
@@ -11,6 +12,7 @@ public abstract class TrainableLayers extends Layer {
     protected double[] gradBias;
     protected double[] preActivation;
     protected int outputSize;
+    protected double[] inputs;
     
     public double[][] getWeights() { return weights; }
     public double[][] getGradWeights() { return gradWeights; }

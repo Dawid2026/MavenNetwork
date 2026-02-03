@@ -1,17 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.mycompany.mavennetwork.layers;
 import com.mycompany.mavennetwork.activationfunction.*;
 import java.util.Random;
 
 
-
+/**
+ * Class that defiens denselayer
+ * 
+ * @author Dawid
+ */
 public class DenseLayer extends TrainableLayers{
     private int inputSize;
-    private double[] inputs;
-    private Random random = new Random();
+    private Random random;
     
     /**
      * Constructor fo DenseLayer
@@ -47,11 +47,11 @@ public class DenseLayer extends TrainableLayers{
         weights = new double[inputSize][outputSize];
         bias = new double[outputSize];
 
-        Random rnd = new Random();
+        random = new Random();
         for(int j = 0;j < bias.length;j++){
             bias[j] = 0;
             for(int i = 0;i < weights.length;i++){
-                weights[i][j] = rnd.nextGaussian() * std;
+                weights[i][j] = random.nextGaussian() * std;
             }
         }
     }
